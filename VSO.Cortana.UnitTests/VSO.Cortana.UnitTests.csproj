@@ -50,8 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VSOService\VSO.Cortana.Service.csproj">
+      <Project>{abd808ce-b39b-4d5d-8f3c-328699899d38}</Project>
+      <Name>VSO.Cortana.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
