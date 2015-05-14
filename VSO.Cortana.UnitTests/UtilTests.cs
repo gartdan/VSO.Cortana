@@ -27,5 +27,15 @@ namespace VSO.Cortana.UnitTests
             var result = nums.ToCommaString();
             Assert.AreEqual("34", result);
         }
+
+        [TestMethod]
+        public void BasicAuth_CreatesValueCorrectly()
+        {
+            string userName = "somedude";
+            string password = "p@ssw3rd";
+            var result = Auth.GetBasicAuthHeaderValue(userName, password);
+            Assert.AreEqual("c29tZWR1ZGU6cEBzc3czcmQ=", result);
+            
+        }
     }
 }

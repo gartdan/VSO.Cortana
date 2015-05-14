@@ -39,6 +39,9 @@
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Queries\WorkItemByTitleQuery.cs" />
     <Compile Include="Queries\WorkItemQuery.cs" />
+    <Compile Include="Queries\WorkItemsAssignedToMeQuery.cs" />
+    <Compile Include="Queries\WorkItemsCreatedThisWeekQuery.cs" />
+    <Compile Include="Queries\WorkItemsCreatedTodayQuery.cs" />
     <Compile Include="Util\Auth.cs" />
     <Compile Include="Util\IntArrayToDelimitedString.cs" />
     <Compile Include="VSOService.cs" />
