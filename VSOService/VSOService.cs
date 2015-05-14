@@ -82,9 +82,11 @@ namespace VSO.Cortana.Service
             return client;
         }
 
-        public async Task<QueryResponse> GetWorkItemsByTitle(string title)
+        public async Task<IEnumerable<WorkItem>> GetWorkItemsByTitle(string title)
         {
-            return await RunWorkItemQuery(new WorkItemByTitleQuery(title));
+            var queryResponse =  await RunWorkItemQuery(new WorkItemByTitleQuery(title));
+            var ids = queryResponse.workItems.Select(x => x.id).ToArray();
+            return await GetWorkItemsById(ids);
         }
 
         public async Task<QueryResponse> RunWorkItemQuery(WorkItemQuery query)

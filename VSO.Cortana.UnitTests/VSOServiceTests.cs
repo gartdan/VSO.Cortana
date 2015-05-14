@@ -54,5 +54,20 @@ namespace VSO.Cortana.UnitTests
             Assert.IsNotNull(response);
             Assert.AreEqual(2, response.Count());
         }
+
+        [TestMethod]
+        public async Task VSOService_RetrieveWorkItemsByTitle()
+        {
+            var title = "Mobile";
+            var service = GetVSOService();
+            var response = await service.GetWorkItemsByTitle(title);
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            foreach(var item in response)
+            {
+                Assert.IsTrue(item.Fields.SystemTitle.IndexOf(title, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+        }
     }
 }
