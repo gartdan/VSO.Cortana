@@ -73,10 +73,8 @@ namespace VSO.Cortana.Service
 
         private HttpClient GetClient()
         {
-            string auth = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ASCII")
-                .GetBytes(string.Format("{0}:{1}", this.UserName, this.Password)));
+            string auth = Auth.GetBasicAuthHeaderValue(this.UserName, this.Password);
             var client = new HttpClient();
-            
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", auth);
             return client;
