@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VSO.Cortana.Service.Models;
 using VSO.Cortana.Service.Queries;
+using VSO.Cortana.Service.Util;
 
 namespace VSO.Cortana.Service
 {
@@ -50,11 +51,24 @@ namespace VSO.Cortana.Service
             }
         }
 
-        public async Task<IList<WorkItem>> GetWorkItemsById(params int[] ids)
+        public async Task<IEnumerable<WorkItem>> GetWorkItemsById(params int[] ids)
         {
-            var results = new List<WorkItem>();
-
-            return results;
+            using (var client = GetClient())
+            {
+                string qs = string.Format("?ids={0}", ids.ToCommaString());
+                try
+                {
+                    var responseBody = await GetAsync(client, BaseUrl + VSOPaths.WorkItems + qs);
+                    var items = JsonConvert.DeserializeObject<ApiCollection<WorkItem>>(responseBody);
+                    return items.Value;
+                }
+                catch (Exception ex)
+                {
+                    //todo: something
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
+            return new List<WorkItem>();
         }
 
         private HttpClient GetClient()

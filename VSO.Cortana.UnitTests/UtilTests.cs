@@ -13,11 +13,19 @@ namespace VSO.Cortana.UnitTests
     public class UtilTests
     {
         [TestMethod]
-        public void Test_IntArrayToDelimitedString()
+        public void Test_IntArrayToDelimitedString_WorksForMultipleInts()
         {
             int[] nums = { 34, 45, 56 };
             var result = nums.ToCommaString();
             Assert.AreEqual("34,45,56", result);
+        }
+
+        [TestMethod]
+        public void Test_IntArrayToDelimitedString_WorksForSingleInts()
+        {
+            int[] nums = { 34 };
+            var result = nums.ToCommaString();
+            Assert.AreEqual("34", result);
         }
     }
 }
