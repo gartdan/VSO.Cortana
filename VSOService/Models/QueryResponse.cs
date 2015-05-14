@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VSOService.Models
+namespace VSO.Cortana.Service.Models
 {
 
     public class QueryResponse

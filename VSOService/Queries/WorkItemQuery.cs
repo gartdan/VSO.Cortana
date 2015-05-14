@@ -1,4 +1,4 @@
-﻿namespace VSOService.Queries
+﻿namespace VSO.Cortana.Service.Queries
 {
     public abstract class WorkItemQuery
     {

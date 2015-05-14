@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using VSOService.Models;
-using VSOService.Queries;
+using VSO.Cortana.Service.Models;
+using VSO.Cortana.Service.Queries;
 
-namespace VSOService
+namespace VSO.Cortana.Service
 {
     public class VSOService
     {

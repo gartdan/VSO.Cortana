@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VSOService.Queries
+namespace VSO.Cortana.Service.Queries
 {
     public class WorkItemByTitleQuery : WorkItemQuery
     {

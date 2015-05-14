@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace VSOService.Models
+namespace VSO.Cortana.Service.Models
 {
     public class WorkItem
     {
