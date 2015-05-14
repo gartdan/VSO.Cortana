@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VSO.Cortana.Service.Util
 {
-    public static class IntArrayToDelimtedString
+    public static class IntArrayToDelimitedString
     {
         public static string ToCommaString(this int[] ary)
         {

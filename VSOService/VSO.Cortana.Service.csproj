@@ -39,7 +39,7 @@
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Queries\WorkItemByTitleQuery.cs" />
     <Compile Include="Queries\WorkItemQuery.cs" />
-    <Compile Include="Util\IntArrayToDelimtedString.cs" />
+    <Compile Include="Util\IntArrayToDelimitedString.cs" />
     <Compile Include="VSOService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
