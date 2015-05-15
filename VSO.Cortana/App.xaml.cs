@@ -6,10 +6,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using VSO.Cortana.Common;
 using VSO.Cortana.Service;
 using VSO.Cortana.View;
+using VSO.Cortana.ViewModel;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.SpeechRecognition;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -146,6 +148,88 @@ namespace VSO.Cortana
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            if (args.Kind != ActivationKind.VoiceCommand)
+                return;
+            var commandArgs = args as VoiceCommandActivatedEventArgs;
+            var speechRecognitionResult = commandArgs.Result;
+            var voiceCommandName = speechRecognitionResult.RulePath[0];
+            var textSpoken = speechRecognitionResult.Text;
+
+            var commandMode = this.SemanticInterpretation("commandMode", speechRecognitionResult);
+
+            Type navigationToPageType;
+            VSOVoiceCommand navigationCommand = null;
+            switch(voiceCommandName)
+            {
+                case "showWorkItems":
+                    navigationCommand = new VSOVoiceCommand() {
+                        CommandMode = commandMode,
+                        VoiceCommand = voiceCommandName,
+                        TextSpoken = textSpoken
+                    };
+                    navigationToPageType = typeof(View.WorkItemListView);
+                    break;
+                case "showWorkItemsByWorkItemType":
+                    var workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
+                    navigationCommand = new VSOVoiceCommand()
+                    {
+                        CommandMode = commandMode,
+                        VoiceCommand = voiceCommandName,
+                        TextSpoken = textSpoken,
+                        WorkItemType = workItemType
+                    };
+                    navigationToPageType = typeof(View.WorkItemListView);
+                    break;
+                default:
+                    navigationToPageType = typeof(View.WorkItemListView);
+                    break;
+
+            }
+
+            // Repeat the same basic initialization as OnLaunched() above, taking into account whether
+            // or not the app is already active.
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+                App.NavigationService = new NavigationService(rootFrame);
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+            // Since we're expecting to always show a details page, navigate even if 
+            // a content frame is in place (unlike OnLaunched).
+            // Navigate to either the main trip list page, or if a valid voice command
+            // was provided, to the details page for that trip.
+            rootFrame.Navigate(navigationToPageType, navigationCommand);
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+
+        }
+
+        /// <summary>
+        /// Returns the semantic interpretation of a speech result. Returns null if there is no interpretation for
+        /// that key.
+        /// </summary>
+        /// <param name="interpretationKey">The interpretation key.</param>
+        /// <param name="speechRecognitionResult">The result to get an interpretation from.</param>
+        /// <returns></returns>
+        private string SemanticInterpretation(string interpretationKey, SpeechRecognitionResult speechRecognitionResult)
+        {
+            return speechRecognitionResult.SemanticInterpretation.Properties[interpretationKey].FirstOrDefault();
         }
     }
 }

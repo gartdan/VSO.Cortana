@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="VSOCommandSet_en-us">
+    <CommandPrefix> VSO, </CommandPrefix>
+    <Example> Show my work items </Example>
+
+    <Command Name="showWorkItems">
+      <Example> Show my work items </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [my] workitems</ListenFor>
+      <Feedback> Showing your work items. </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="showWorkItemsByWorkItemType">
+      <Example> Show my work items </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [my] {workItemType} workitems</ListenFor>
+      <Feedback> Showing your {workItemType} work items. </Feedback>
+      <Navigate />
+    </Command>
+
+
+    <PhraseList Label="workItemType">
+      <Item>Bug</Item>
+      <Item>Task</Item>
+      <Item>PBI</Item>
+      <Item>User Story</Item>
+    </PhraseList>
+  </CommandSet>
+
+</VoiceCommands>

@@ -108,6 +108,7 @@
     <Compile Include="ViewModel\SetVSOCredentialsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\VSOVoiceCommand.cs" />
     <Compile Include="ViewModel\WorkItemDetailsViewModel.cs" />
     <Compile Include="ViewModel\WorkItemListViewModel.cs" />
     <Compile Include="View\SetVSOCredentialsView.xaml.cs">
@@ -135,6 +136,7 @@
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
+    <Content Include="VSOCommands.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
