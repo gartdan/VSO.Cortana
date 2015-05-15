@@ -94,10 +94,31 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\datetimeoffsetconverter.cs" />
+    <Compile Include="Common\inavigationservice.cs" />
+    <Compile Include="Common\navigationhelper.cs" />
+    <Compile Include="Common\navigationservice.cs" />
+    <Compile Include="Common\relaycommand.cs" />
+    <Compile Include="Common\suspensionmanager.cs" />
+    <Compile Include="Common\visibilityconverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\SetVSOCredentialsViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\WorkItemDetailsViewModel.cs" />
+    <Compile Include="ViewModel\WorkItemListViewModel.cs" />
+    <Compile Include="View\SetVSOCredentialsView.xaml.cs">
+      <DependentUpon>SetVSOCredentialsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkItemDetailsView.xaml.cs">
+      <DependentUpon>WorkItemDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkItemListView.xaml.cs">
+      <DependentUpon>WorkItemListView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -124,6 +145,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="View\SetVSOCredentialsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkItemDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkItemListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ApplicationInsights, Version=0.14.3.177, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -138,6 +176,7 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.PersistenceChannel.0.14.3-build00177\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.PersistenceChannel.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Numerics.Vectors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.0.0\lib\win8\System.Numerics.Vectors.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +185,13 @@
       <HintPath>..\packages\System.Numerics.Vectors.4.0.0\lib\win8\System.Numerics.Vectors.WindowsRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VSOService\VSO.Cortana.Service.csproj">
+      <Project>{abd808ce-b39b-4d5d-8f3c-328699899d38}</Project>
+      <Name>VSO.Cortana.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

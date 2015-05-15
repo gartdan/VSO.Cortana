@@ -12,7 +12,7 @@ using VSO.Cortana.Service.Util;
 
 namespace VSO.Cortana.Service
 {
-    public class VSOService
+    public class VSOService : IVSOService
     {
         public string VSOAccount { get; private set; }
         public string UserName { get; private set; }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using VSO.Cortana.Common;
+using VSO.Cortana.Service;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -40,6 +42,9 @@ namespace VSO.Cortana
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
+        public static NavigationService NavigationService { get; set; }
+        public static IVSOService VSOService { get; set; }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

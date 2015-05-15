@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IVSOService.cs" />
     <Compile Include="Models\ApiCollection.cs" />
     <Compile Include="Models\QueryResponse.cs" />
     <Compile Include="Models\WorkItem.cs" />
