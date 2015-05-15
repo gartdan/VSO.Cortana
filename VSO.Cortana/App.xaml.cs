@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using VSO.Cortana.Common;
 using VSO.Cortana.Service;
 using VSO.Cortana.View;
@@ -42,9 +43,23 @@ namespace VSO.Cortana
         public App()
         {
             TelemetryClient = new Microsoft.ApplicationInsights.TelemetryClient();
-
+            App.VSOService = GetVSOService().Result;
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        private async Task<IVSOService> GetVSOService()
+        {
+            var storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            //THIS IS JUST TEMPORARY. until put the passwords in the vault. Read them from a file in the same dir a
+            //as the app
+            var file = await storageFolder.GetFileAsync("passwords.IGNORE.txt");
+            var text = await Windows.Storage.FileIO.ReadLinesAsync(file);
+            var username = text[0];
+            var password = text[1];
+            var account = text[2];
+            return new VSOService("dgartner", username, password, account);
+
         }
 
         public static NavigationService NavigationService { get; set; }
@@ -74,7 +89,7 @@ namespace VSO.Cortana
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
                 App.NavigationService = new NavigationService(rootFrame);
-
+                
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

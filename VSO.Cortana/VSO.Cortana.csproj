@@ -130,6 +130,9 @@
     <None Include="VSO.Cortana_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="passwords.IGNORE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
@@ -190,7 +193,11 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="Microsoft.NET.CoreRuntime, Version=1.0">
+      <Name>Microsoft .NET Core Runtime Package for Windows</Name>
+    </SDKReference>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VSOService\VSO.Cortana.Service.csproj">
       <Project>{abd808ce-b39b-4d5d-8f3c-328699899d38}</Project>

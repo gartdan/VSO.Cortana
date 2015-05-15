@@ -10,6 +10,9 @@ namespace VSO.Cortana.Service.Queries
     {
         public string Title { get; private set; }
 
+        /// <summary>
+        /// Note the double brackets. This is needed when using string.Format to properly escape the text
+        /// </summary>
         private static readonly string QueryFormat = 
 @"{{ ""query"":
 ""Select [System.Id], [System.Title], [System.State], [System.AreaPath], [System.TeamProject], [System.WorkItemType], [System.Reason], [System.CreatedBy]

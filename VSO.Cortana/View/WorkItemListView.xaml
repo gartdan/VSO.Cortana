@@ -55,14 +55,17 @@
                      SelectionChanged="workItemsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Destination}" FontSize="18.667" FontWeight="Bold" />
-                            <TextBlock Text="{Binding Description}" Margin="20,0,0,0" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Id}" />
+                            <TextBlock Text="{Binding Fields.SystemTitle}"/>
+                            <TextBlock Text="{Binding Fields.SystemIterationPath}"/>
+                            <TextBlock Text="{Binding Fields.SystemTeamProject}"/>
+                            <TextBlock Text="{Binding Fields.SystemWorkItemType}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Command="{Binding AddTripCommand}" 
+            <Button Command="{Binding AddWorkItemCommand}" 
                     Content="Add Trip" 
                     Margin="30,10,0,0"/>
         </StackPanel>
