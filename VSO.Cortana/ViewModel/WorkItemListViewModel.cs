@@ -77,6 +77,13 @@ namespace VSO.Cortana.ViewModel
             this.WorkItems = new ObservableCollection<WorkItem>(workItems);
         }
 
+        public async Task LoadWorkItems()
+        {
+            var query = new WorkItemsAssignedToMeQuery();
+            var workItems = await this.vsoService.GetWorkItemsByQuery(query);
+            this.WorkItems = new ObservableCollection<WorkItem>(workItems);
+        }
+
         public void SelectionChanged()
         {
             if(SelectedWorkItem != null)
