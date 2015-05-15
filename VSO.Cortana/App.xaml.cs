@@ -5,10 +5,12 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using VSO.Cortana.Common;
 using VSO.Cortana.Service;
+using VSO.Cortana.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -69,6 +71,7 @@ namespace VSO.Cortana
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+                App.NavigationService = new NavigationService(rootFrame);
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
@@ -83,13 +86,42 @@ namespace VSO.Cortana
 
             if (rootFrame.Content == null)
             {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                if(string.IsNullOrEmpty(e.Arguments))
+                {
+                    rootFrame.Navigate(typeof(WorkItemListView), string.Empty);
+                }
+                else
+                {
+                    rootFrame.Navigate(typeof(WorkItemListView), e.Arguments);
+                }
+                
             }
             // Ensure the current window is active
             Window.Current.Activate();
+            RegisterCortanaCommands();
+        }
+
+        public async void RegisterCortanaCommands()
+        {
+            try
+            {
+                // Install the main VCD. Since there's no simple way to test that the VCD has been imported, or that it's your most recent
+                // version, it's not unreasonable to do this upon app load.
+                StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"VSOCommands.xml");
+
+                await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+
+                // Update phrase list.
+                ViewModel.ViewModelLocator locator = App.Current.Resources["ViewModelLocator"] as ViewModel.ViewModelLocator;
+                if (locator != null)
+                {
+                    await locator.WorkItemDetailsViewModel.UpdateWorkItemPhraseList();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Installing Voice Commands Failed: " + ex.ToString());
+            }
         }
 
         /// <summary>
