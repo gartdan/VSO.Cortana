@@ -105,11 +105,11 @@ namespace VSO.Cortana
             {
                 if(string.IsNullOrEmpty(e.Arguments))
                 {
-                    rootFrame.Navigate(typeof(WorkItemListView), string.Empty);
+                    rootFrame.Navigate(typeof(MasterDetailPage), string.Empty);
                 }
                 else
                 {
-                    rootFrame.Navigate(typeof(WorkItemListView), e.Arguments);
+                    rootFrame.Navigate(typeof(MasterDetailPage), e.Arguments);
                 }
                 
             }
@@ -179,6 +179,8 @@ namespace VSO.Cortana
 
             Type navigationToPageType;
             VSOVoiceCommand navigationCommand = null;
+            string workItemType = string.Empty;
+            string state = string.Empty;
             switch(voiceCommandName)
             {
                 case "showWorkItems":
@@ -190,7 +192,7 @@ namespace VSO.Cortana
                     navigationToPageType = typeof(View.WorkItemListView);
                     break;
                 case "showWorkItemsByWorkItemType":
-                    var workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
+                    workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
                     navigationCommand = new VSOVoiceCommand()
                     {
                         CommandMode = commandMode,
@@ -199,6 +201,29 @@ namespace VSO.Cortana
                         WorkItemType = workItemType
                     };
                     navigationToPageType = typeof(View.WorkItemListView);
+                    break;
+                case "showWorkItemsByState":
+                    workItemType = this.SemanticInterpretation("state", speechRecognitionResult);
+                    navigationCommand = new VSOVoiceCommand()
+                    {
+                        CommandMode = commandMode,
+                        VoiceCommand = voiceCommandName,
+                        TextSpoken = textSpoken,
+                        WorkItemType = workItemType,
+                        WorkItemState = state
+                    };
+                    navigationToPageType = typeof(View.WorkItemListView);
+                    break;
+                case "createNewWorkItem":
+                    workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
+                    navigationCommand = new VSOVoiceCommand()
+                    {
+                        CommandMode = commandMode,
+                        VoiceCommand = voiceCommandName,
+                        TextSpoken = textSpoken,
+                        WorkItemType = workItemType
+                    };
+                    navigationToPageType = typeof(View.CreateWorkItem);
                     break;
                 default:
                     navigationToPageType = typeof(View.WorkItemListView);

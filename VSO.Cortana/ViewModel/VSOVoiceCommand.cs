@@ -13,5 +13,7 @@ namespace VSO.Cortana.ViewModel
         public string TextSpoken { get; set; }
         public string WorkItemType { get; set; }
         public string Title { get; set; }
+
+        public string WorkItemState { get; set; }
     }
 }

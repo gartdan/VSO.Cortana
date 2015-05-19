@@ -5,30 +5,37 @@
     <Example> Show my work items </Example>
 
     <Command Name="showWorkItems">
-      <Example> Show my work items </Example>
+      <Example>Show my work items </Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [my] workitems</ListenFor>
-      <Feedback> Showing your work items. </Feedback>
+      <Feedback>Showing your work items. </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="showWorkItemsByState">
+      <Example>Show my work items </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">show [my] {state} workitems</ListenFor>
+      <Feedback>Showing your {state} work items. </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="showWorkItemsByWorkItemType">
       <Example>Show my work items </Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [my] {workItemType} workitems</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">show [my] {workItemType} workitems</ListenFor>
       <Feedback> Showing your {workItemType} work items. </Feedback>
       <Navigate />
     </Command>
     
-    <Command Name="createBug">
-      <Example>Create new bug in VSO</Example>
+    <Command Name="createNewWorkItem">
+      <Example>Create new {workItemType} in VSO</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">Create new Bug</ListenFor>
-      <Feedback>Launching create new bug screen</Feedback>
+      <Feedback>Launching create new {workItemType} screen</Feedback>
       <Navigate/>
     </Command>
 
     <Command Name="createBugDictate">
       <Example>VSO Create Bug Login page does not load</Example>
-      <ListenFor RequireAppName="BeforePhrase">create bug {dictatedBugTitle}</ListenFor>
-      <Feedback> Creating a bug. </Feedback>
+      <ListenFor RequireAppName="BeforePhrase">Create bug {dictatedBugTitle}</ListenFor>
+      <Feedback> Creating a bug.</Feedback>
       <Navigate />
     </Command>
 
@@ -39,6 +46,12 @@
       <Item>Task</Item>
       <Item>PBI</Item>
       <Item>User Story</Item>
+    </PhraseList>
+
+    <PhraseList Label="state">
+      <Item>New</Item>
+      <Item>Open</Item>
+      <Item>Closed</Item>
     </PhraseList>
 
     <PhraseTopic Label="dictatedBugTitle" Scenario="Dictation">

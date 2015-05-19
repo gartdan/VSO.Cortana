@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VSO.Cortana.Service.Models;
 using Windows.ApplicationModel.VoiceCommands;
 
 namespace VSO.Cortana.ViewModel
 {
     public class WorkItemDetailsViewModel : ViewModelBase
     {
+        public WorkItem WorkItem { get; set; }
 
         public async Task UpdateWorkItemPhraseList()
         {
