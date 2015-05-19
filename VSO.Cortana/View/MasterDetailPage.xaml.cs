@@ -56,7 +56,7 @@ namespace VSO.Cortana.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+            this.Title = "My Items";
             var items = MasterListView.ItemsSource as List<WorkItemViewModel>;
 
             if (items == null)

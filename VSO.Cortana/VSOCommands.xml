@@ -3,23 +3,22 @@
   <CommandSet xml:lang="en-us" Name="VSOCommandSet_en-us">
     <CommandPrefix> VSO, </CommandPrefix>
     <Example> Show my work items </Example>
-
     <Command Name="showWorkItems">
       <Example>Show my work items </Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [my] workitems</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">show [my] workitems</ListenFor>
       <Feedback>Showing your work items. </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="showWorkItemsByState">
-      <Example>Show my work items </Example>
+      <Example>Show my closed work items </Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">show [my] {state} workitems</ListenFor>
       <Feedback>Showing your {state} work items. </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="showWorkItemsByWorkItemType">
-      <Example>Show my work items </Example>
+      <Example>Show my bug work items</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">show [my] {workItemType} workitems</ListenFor>
       <Feedback> Showing your {workItemType} work items. </Feedback>
       <Navigate />
@@ -27,7 +26,7 @@
     
     <Command Name="createNewWorkItem">
       <Example>Create new {workItemType} in VSO</Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase">Create new Bug</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Create new {workItemType}</ListenFor>
       <Feedback>Launching create new {workItemType} screen</Feedback>
       <Navigate/>
     </Command>
