@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="VSO.Cortana.View.CreateWorkItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VSO.Cortana"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="PageRoot"
+    NavigationCacheMode="Enabled"
+    Loaded="PageRoot_Loaded"
+    Unloaded="PageRoot_Unloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <!-- Don't realize our content by default. See PageRoot_Loaded. -->
+    <StackPanel x:Name="RootPanel" x:DeferLoadStrategy="Lazy">
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BackButton"
+                    Style="{StaticResource NavigationBackButtonSmallStyle}"
+                    TabIndex="1"
+                    Margin="8,0,0,0"
+                    Click="BackButton_Click"
+                    AutomationProperties.Name="Back"
+                    ToolTipService.ToolTip="Back" />
+
+            <TextBlock Margin="8" Style="{ThemeResource TitleTextBlockStyle}"
+                       HorizontalAlignment="Left" Text="Creste New {x:Bind Item.WorkItemType, Mode=OneWay}" />
+        </StackPanel>
+
+        <TextBlock Margin="12,9,12,0" HorizontalAlignment="Left" MaxWidth="560"
+                   Style="{ThemeResource BodyTextBlockStyle}" Text="Title" 
+                   EntranceNavigationTransitionInfo.IsTargetElement="True" />
+        <TextBox Margin="12,3,12,9" HorizontalAlignment="Left"  Width="300" MaxWidth="560"
+                   Text="{x:Bind Item.Title, Mode=TwoWay}" 
+                   EntranceNavigationTransitionInfo.IsTargetElement="True" />
+        <TextBlock Margin="12,9,12,0" HorizontalAlignment="Left" MaxWidth="560"
+                   Style="{ThemeResource BodyTextBlockStyle}" Text="Area Path" 
+                   EntranceNavigationTransitionInfo.IsTargetElement="True" />
+        <TextBox Margin="12,3,12,9" HorizontalAlignment="Left"  Width="300" MaxWidth="560"
+                   Text="{x:Bind Item.AreaPath, Mode=TwoWay}" 
+                   EntranceNavigationTransitionInfo.IsTargetElement="True" />
+
+        <Button Margin="12,3,12,9" Content="Save">
+            
+        </Button>
+
+    </StackPanel>
+</Page>
