@@ -41,14 +41,37 @@ namespace VSO.Cortana.View
             this.InitializeComponent();
         }
 
-        public string Title { get; set; }
+        private static DependencyProperty s_titleProperty
+            = DependencyProperty.Register("Title", typeof(string), typeof(MasterDetailPage), new PropertyMetadata(null));
+
+        public static DependencyProperty ItemProperty
+        {
+            get { return s_titleProperty; }
+        }
+
+        public string Title
+        {
+            get { return (string)GetValue(s_titleProperty); }
+            set { SetValue(s_titleProperty, value); }
+        }
 
 
 
-        public async Task<IEnumerable<WorkItem>> GetWorkItems()
+        public IEnumerable<WorkItem> GetWorkItems(NavigationEventArgs e)
         {
             var query = new WorkItemsAssignedToMeQuery();
-            var workItems = await this._vsoService.GetWorkItemsByQuery(query);
+            IEnumerable<WorkItem> workItems = workItems = this._vsoService.GetWorkItemsByQuery(query).Result;
+            if (e.Parameter is VSOVoiceCommand)
+            {
+                var cmd = e.Parameter as VSOVoiceCommand;
+                if(!string.IsNullOrEmpty(cmd.WorkItemState))
+                {
+                    workItems = workItems.Where(x => x.Fields.SystemState == cmd.WorkItemState);
+                }else if(!string.IsNullOrEmpty(cmd.WorkItemType))
+                {
+                    workItems = workItems.Where(x => x.Fields.SystemWorkItemType == cmd.WorkItemType);
+                }
+            }
             return workItems;
         }
 
@@ -56,19 +79,12 @@ namespace VSO.Cortana.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            this.Title = "My Items";
+            
             var items = MasterListView.ItemsSource as List<WorkItemViewModel>;
 
             if (items == null)
             {
-                items = new List<WorkItemViewModel>();
-
-                foreach (var item in this.GetWorkItems().Result)
-                {
-                    items.Add(WorkItemViewModel.FromItem(item));
-                }
-
-                MasterListView.ItemsSource = items;
+                items = LoadWorkItems(e);
             }
 
             if (e.Parameter != null)
@@ -90,7 +106,16 @@ namespace VSO.Cortana.View
                     {
                         this.Title = string.Format("My {0}s", cmd.WorkItemType);
                     }
+                    LoadWorkItems(e);
                 }
+                else
+                {
+                    this.Title = "My Items";
+                }
+            }
+            else
+            {
+                this.Title = "My Items";
             }
 
             UpdateForVisualState(AdaptiveStates.CurrentState);
@@ -98,6 +123,18 @@ namespace VSO.Cortana.View
             // Don't play a content transition for first item load.
             // Sometimes, this content will be animated as part of the page transition.
             DisableContentTransitions();
+        }
+
+        private List<WorkItemViewModel> LoadWorkItems(NavigationEventArgs e)
+        {
+            List<WorkItemViewModel> items = new List<WorkItemViewModel>();
+            foreach (var item in this.GetWorkItems(e))
+            {
+                items.Add(WorkItemViewModel.FromItem(item));
+            }
+            MasterListView.ItemsSource = null;
+            MasterListView.ItemsSource = items;
+            return items;
         }
 
         private void AdaptiveStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)

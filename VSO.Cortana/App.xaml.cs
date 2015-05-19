@@ -189,7 +189,7 @@ namespace VSO.Cortana
                         VoiceCommand = voiceCommandName,
                         TextSpoken = textSpoken
                     };
-                    navigationToPageType = typeof(View.WorkItemListView);
+                    navigationToPageType = typeof(View.MasterDetailPage);
                     break;
                 case "showWorkItemsByWorkItemType":
                     workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
@@ -200,10 +200,10 @@ namespace VSO.Cortana
                         TextSpoken = textSpoken,
                         WorkItemType = workItemType
                     };
-                    navigationToPageType = typeof(View.WorkItemListView);
+                    navigationToPageType = typeof(View.MasterDetailPage);
                     break;
                 case "showWorkItemsByState":
-                    workItemType = this.SemanticInterpretation("state", speechRecognitionResult);
+                    state = this.SemanticInterpretation("state", speechRecognitionResult);
                     navigationCommand = new VSOVoiceCommand()
                     {
                         CommandMode = commandMode,
@@ -212,7 +212,7 @@ namespace VSO.Cortana
                         WorkItemType = workItemType,
                         WorkItemState = state
                     };
-                    navigationToPageType = typeof(View.WorkItemListView);
+                    navigationToPageType = typeof(View.MasterDetailPage);
                     break;
                 case "createNewWorkItem":
                     workItemType = this.SemanticInterpretation("workItemType", speechRecognitionResult);
@@ -226,7 +226,7 @@ namespace VSO.Cortana
                     navigationToPageType = typeof(View.CreateWorkItem);
                     break;
                 default:
-                    navigationToPageType = typeof(View.WorkItemListView);
+                    navigationToPageType = typeof(View.MasterDetailPage);
                     break;
 
             }
