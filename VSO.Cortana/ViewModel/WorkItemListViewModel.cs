@@ -61,6 +61,14 @@ namespace VSO.Cortana.ViewModel
             }
         }
 
+        public ICommand SetVSOCredentialsCommand
+        {
+            get
+            {
+                return this.setVSOCredentialsCommand;
+            }
+        }
+
         public void AddWorkItem()
         {
             App.NavigationService.Navigate<WorkItemDetailsView>();
@@ -88,7 +96,7 @@ namespace VSO.Cortana.ViewModel
         {
             if(SelectedWorkItem != null)
             {
-                App.NavigationService.Navigate<WorkItem>(SelectedWorkItem);
+                App.NavigationService.Navigate<WorkItemDetailsView>(SelectedWorkItem);
             }
         }
 

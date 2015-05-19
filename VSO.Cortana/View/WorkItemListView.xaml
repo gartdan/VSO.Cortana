@@ -43,31 +43,46 @@
                         IsHitTestVisible="false" VerticalAlignment="Bottom" Margin="10,12,10,12"/>
         </Grid>
         <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnAddWorkItem" Command="{Binding AddWorkItemCommand}" 
+                    Content="Add Work Item" 
+                    Margin="30,10,0,0"/>
+                <Button x:Name="btnSetCredentials" Command="{Binding SetVSOCredentialsCommand}" Content="Set VSO Credentials" Margin="10,10,0,0"></Button>
+            </StackPanel>
+
             <ListBox x:Name="workItemsListBox" 
                      ItemsSource="{Binding WorkItems}" 
                      SelectedItem="{Binding Path=SelectedWorkItem, Mode=TwoWay}" 
-                     Height="250" 
+                     Height="600" 
                      Width="Auto"
-                     MaxWidth="450"
+                     MaxWidth="700"
                      Margin="30,0,30,0"
                      HorizontalAlignment="Left"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
                      SelectionChanged="workItemsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Id}" />
-                            <TextBlock Text="{Binding Fields.SystemTitle}"/>
-                            <TextBlock Text="{Binding Fields.SystemIterationPath}"/>
-                            <TextBlock Text="{Binding Fields.SystemTeamProject}"/>
-                            <TextBlock Text="{Binding Fields.SystemWorkItemType}"/>
+                        <StackPanel Orientation="Vertical" Width="600">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="Bold" Text="ID" Margin="0,5,0,0" FontSize="12"></TextBlock>
+                                <TextBlock Text="{Binding Id}" Margin="0,5,0,0" FontSize="12" />
+                                <TextBlock Text="{Binding Fields.SystemWorkItemType}" FontSize="12"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Fields.SystemTitle}" FontSize="20"/>
+                                <TextBlock Text="Team Project" FontSize="12"></TextBlock>
+                                <TextBlock Text="{Binding Fields.SystemTeamProject}" FontSize="20"/>
+                                <StackPanel>
+                                    <TextBlock Text="Iteration: " Margin="0,5,0,0" FontSize="12"></TextBlock>
+                                    <TextBlock Text="{Binding Fields.SystemIterationPath}" FontSize="20"/>
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Command="{Binding AddWorkItemCommand}" 
-                    Content="Add Trip" 
-                    Margin="30,10,0,0"/>
+            
+
         </StackPanel>
 
         <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True" Grid.Row="2">
