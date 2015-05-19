@@ -8,8 +8,7 @@
     mc:Ignorable="d"
     x:Name="PageRoot"
     NavigationCacheMode="Enabled"
-    Loaded="PageRoot_Loaded"
-    Unloaded="PageRoot_Unloaded"
+
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Transitions>
         <TransitionCollection>
@@ -18,7 +17,7 @@
     </Page.Transitions>
 
     <!-- Don't realize our content by default. See PageRoot_Loaded. -->
-    <StackPanel x:Name="RootPanel" x:DeferLoadStrategy="Lazy">
+    <StackPanel x:Name="RootPanel">
         <StackPanel Orientation="Horizontal">
             <Button x:Name="BackButton"
                     Style="{StaticResource NavigationBackButtonSmallStyle}"
@@ -29,7 +28,7 @@
                     ToolTipService.ToolTip="Back" />
 
             <TextBlock Margin="8" Style="{ThemeResource TitleTextBlockStyle}"
-                       HorizontalAlignment="Left" Text="Creste New {x:Bind Item.WorkItemType, Mode=OneWay}" />
+                       HorizontalAlignment="Left" Text="Create New Work Item" />
         </StackPanel>
 
         <TextBlock Margin="12,9,12,0" HorizontalAlignment="Left" MaxWidth="560"

@@ -21,7 +21,12 @@ namespace VSO.Cortana.ViewModel
 
         public WorkItemViewModel()
         {
-
+            this.Url = string.Empty;
+            this.WorkItemType = string.Empty;
+            this.AreaPath = string.Empty;
+            this.IterationPath = string.Empty;
+            this.TeamProject = string.Empty;
+            this.Title = string.Empty;
         }
 
         public static WorkItemViewModel FromItem(WorkItem item)

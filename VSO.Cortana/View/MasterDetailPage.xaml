@@ -98,20 +98,25 @@
         </Grid.ColumnDefinitions>
 
         <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
-            <TextBlock Text="{x:Bind Title, Mode=OneWay}" Margin="24,8,8,8"
+            <StackPanel>
+                <TextBlock Text="{x:Bind Title, Mode=OneWay}" Margin="24,8,8,8"
                        Style="{ThemeResource TitleTextBlockStyle}" />
+                <Button Content="New Bug" Margin="24,8,8,8" Click="Button_Click"></Button>
+            </StackPanel>
+
         </Grid>
 
-        <ListView x:Name="MasterListView" Grid.Row="1" ItemContainerTransitions="{x:Null}"
+
+            <ListView Grid.Row="1" x:Name="MasterListView" ItemContainerTransitions="{x:Null}"
                   ItemTemplate="{StaticResource MasterListViewItemTemplate}"
                   IsItemClickEnabled="True"
                   ItemClick="MasterListView_ItemClick">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
 
         <ContentPresenter
             x:Name="DetailContentPresenter"
@@ -127,5 +132,7 @@
                 <TransitionCollection />
             </ContentPresenter.ContentTransitions>
         </ContentPresenter>
+
+
     </Grid>
 </Page>
