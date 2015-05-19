@@ -25,7 +25,7 @@
     </Command>
     
     <Command Name="createNewWorkItem">
-      <Example>Create new {workItemType} in VSO</Example>
+      <Example>Create new Task in VSO</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">Create new {workItemType}</ListenFor>
       <Feedback>Launching create new {workItemType} screen</Feedback>
       <Navigate/>
